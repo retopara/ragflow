@@ -160,8 +160,8 @@ export default {
       rerankPlaceholder: 'Please select',
       rerankTip: `If left empty, RAGFlow will use a combination of weighted keyword similarity and weighted vector cosine similarity; if a rerank model is selected, a weighted reranking score will replace the weighted vector cosine similarity. Please be aware that using a rerank model will significantly increase the system's response time.`,
       topK: 'Top-K',
-      topKTip: `K chunks will be fed into rerank models.`,
-      delimiter: `Delimiter`,
+      topKTip: `K chunks will be sent into the rerank model.`,
+      delimiter: `Delimiters`,
       delimiterTip:
         'A delimiter or separator can consist of one or multiple special characters. If it is multiple characters, ensure they are enclosed in backticks( ``). For example, if you configure your delimiters like this: \n`##`;, then your texts will be separated at line breaks, double hash symbols (##), or semicolons.',
       html4excel: 'Excel to HTML',
@@ -202,7 +202,7 @@ export default {
       name: 'Knowledge base name',
       photo: 'Knowledge base photo',
       description: 'Description',
-      language: 'Language',
+      language: 'Document language',
       languageMessage: 'Please input your language!',
       languagePlaceholder: 'Please input your language!',
       permissions: 'Permissions',
@@ -220,6 +220,7 @@ export default {
       upload: 'Upload',
       english: 'English',
       chinese: 'Chinese',
+      portugueseBr: 'Portuguese (Brazil)',
       embeddingModelPlaceholder: 'Please select a embedding model',
       chunkMethodPlaceholder: 'Please select a chunk method',
       save: 'Save',
@@ -368,15 +369,15 @@ This procedure will improve precision of retrieval by adding more information to
       addTag: 'Add tag',
       useGraphRag: 'Extract knowledge graph',
       useGraphRagTip:
-        'After files being chunked, all the chunks will be used for knowlege graph generation which helps inference of multi-hop and complex problems a lot.',
+        'Construct a knowledge graph over extracted file chunks to enhance multi-hop question answering.',
       graphRagMethod: 'Method',
-      graphRagMethodTip: `Light: the entity and relation extraction prompt is from GitHub - HKUDS/LightRAG: "LightRAG: Simple and Fast Retrieval-Augmented Generation"</br>
-        General: the entity and relation extraction prompt is from GitHub - microsoft/graphrag: A modular graph-based Retrieval-Augmented Generation (RAG) system`,
+      graphRagMethodTip: `Light: (Default) Use prompts provided by github.com/HKUDS/LightRAG to extract entities and relationships. This option consumes fewer tokens, less memory, and fewer computational resources.</br>
+        General: Use prompts provided by github.com/microsoft/graphrag to extract entities and relationships`,
       resolution: 'Entity resolution',
-      resolutionTip: `The resolution procedure would merge entities with the same meaning together which allows the graph conciser and more accurate. Entities as following should be merged:  President Trump, Donald Trump, Donald J. Trump, Donald John Trump`,
+      resolutionTip: `An entity deduplication switch. When enabled, the LLM will combine similar entities - e.g., '2025' and 'the year of 2025', or 'IT' and 'Information Technology' - to construct a more accurate graph`,
       community: 'Community reports generation',
       communityTip:
-        'Chunks are clustered into hierarchical communities with entities and relationships connecting each segment up through higher levels of abstraction. We then use an LLM to generate a summary of each community, known as a community report. More: https://www.microsoft.com/en-us/research/blog/graphrag-improving-global-search-via-dynamic-community-selection/',
+        'In a knowledge graph, a community is a cluster of entities linked by relationships. You can have the LLM generate an abstract for each community, known as a community report. See here for more information: https://www.microsoft.com/en-us/research/blog/graphrag-improving-global-search-via-dynamic-community-selection/',
     },
     chunk: {
       chunk: 'Chunk',
@@ -522,6 +523,13 @@ This procedure will improve precision of retrieval by adding more information to
         'It will retrieve descriptions of relevant entities,relations and community reports, which will enhance inference of multi-hop and complex question.',
       keyword: 'Keyword analysis',
       keywordTip: `Apply LLM to analyze user's questions, extract keywords which will be emphesize during the relevance omputation.`,
+      languageTip:
+        'Allows sentence rewriting with the specified language or defaults to the latest question if not selected.',
+      avatarHidden: 'Hide avatar',
+      locale: 'Locale',
+      reasoning: 'Reasoning',
+      reasoningTip:
+        'It will trigger reasoning process like Deepseek-R1/OpenAI o1. Integrates an agentic search process into the reasoning workflow, allowing models itself to dynamically retrieve external knowledge whenever they encounter uncertain information.',
     },
     setting: {
       profile: 'Profile',
@@ -1163,8 +1171,8 @@ This delimiter is used to split the input text into several text pieces echo of 
         lineBreak: 'Line break',
         tab: 'Tab',
         underline: 'Underline',
-        diagonal: 'Diagonal',
-        minus: 'Minus',
+        diagonal: 'Forward slash',
+        minus: 'Dash',
         semicolon: 'Semicolon',
       },
       addVariable: 'Add variable',
@@ -1174,6 +1182,7 @@ This delimiter is used to split the input text into several text pieces echo of 
       addCategory: 'Add category',
       categoryName: 'Category name',
       nextStep: 'Next step',
+      insertVariableTip: `Enter / Insert variables`,
     },
     footer: {
       profile: 'All rights reserved @ React',

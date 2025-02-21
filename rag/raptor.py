@@ -39,6 +39,7 @@ class RecursiveAbstractiveProcessing4TreeOrganizedRetrieval:
         if response:
             return response
         response = self._llm_model.chat(system, history, gen_conf)
+        response = re.sub(r"<think>.*</think>", "", response, flags=re.DOTALL)
         if response.find("**ERROR**") >= 0:
             raise Exception(response)
         set_llm_cache(self._llm_model.llm_name, system, response, history, gen_conf)
@@ -46,7 +47,7 @@ class RecursiveAbstractiveProcessing4TreeOrganizedRetrieval:
 
     def _embedding_encode(self, txt):
         response = get_embed_cache(self._embd_model.llm_name, txt)
-        if response:
+        if response is not None:
             return response
         embds, _ = self._embd_model.encode([txt])
         if len(embds) < 1 or len(embds[0]) < 1:

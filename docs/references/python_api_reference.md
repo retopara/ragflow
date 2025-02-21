@@ -262,6 +262,7 @@ A dictionary representing the attributes to update, with the following keys:
   - `"email"`: Email
   - `"knowledge_graph"`: Knowledge Graph  
     Ensure your LLM is properly configured on the **Settings** page before selecting this. Please also note that Knowledge Graph consumes a large number of Tokens!
+  - `"meta_fields"`: `dict[str, Any]` The meta fields of the dataset.
 
 #### Returns
 
@@ -688,8 +689,8 @@ A `Chunk` object contains the following attributes:
 from ragflow_sdk import RAGFlow
 
 rag_object = RAGFlow(api_key="<YOUR_API_KEY>", base_url="http://<YOUR_BASE_URL>:9380")
-dataset = rag_object.list_datasets(id="123")
-dtaset = dataset[0]
+datasets = rag_object.list_datasets(id="123")
+dataset = datasets[0]
 doc = dataset.list_documents(id="wdfxb5t547d")
 doc = doc[0]
 chunk = doc.add_chunk(content="xxxxxxx")
@@ -859,7 +860,7 @@ The weight of vector cosine similarity. Defaults to `0.3`. If x represents the v
 
 ##### top_k: `int`
 
-The number of chunks engaged in vector cosine computaton. Defaults to `1024`.
+The number of chunks engaged in vector cosine computation. Defaults to `1024`.
 
 ##### rerank_id: `str`
 
@@ -1325,7 +1326,7 @@ In streaming mode, not all responses include a reference, as this depends on the
 
 ##### question: `str`, *Required*
 
-The question to start an AI-powered conversation. Defalut to `""`
+The question to start an AI-powered conversation. Default to `""`
 
 ##### stream: `bool`
 
@@ -1461,7 +1462,7 @@ In streaming mode, not all responses include a reference, as this depends on the
 
 ##### question: `str`
 
-The question to start an AI-powered conversation. If the `begin` component takes parameters, a question is not required.
+The question to start an AI-powered conversation. Ifthe **Begin** component takes parameters, a question is not required.
 
 ##### stream: `bool`
 

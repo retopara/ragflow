@@ -20,13 +20,14 @@ import { useTranslation } from 'react-i18next';
 
 import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
 
-import { preprocessLaTeX } from '@/utils/chat';
+import { preprocessLaTeX, replaceThinkToSection } from '@/utils/chat';
 import { replaceTextByOldReg } from '../utils';
 
+import { pipe } from 'lodash/fp';
 import styles from './index.less';
 
 const reg = /(~{2}\d+={2})/g;
-const curReg = /(~{2}\d+\${2})/g;
+// const curReg = /(~{2}\d+\${2})/g;
 
 const getChunkIndex = (match: string) => Number(match.slice(2, -2));
 // TODO: The display of the table is inconsistent with the display previously placed in the MessageItem.
@@ -34,7 +35,6 @@ const MarkdownContent = ({
   reference,
   clickDocumentButton,
   content,
-  loading,
 }: {
   content: string;
   loading: boolean;
@@ -50,11 +50,12 @@ const MarkdownContent = ({
       text = t('chat.searching');
     }
     const nextText = replaceTextByOldReg(text);
-    return loading ? nextText?.concat('~~2$$') : preprocessLaTeX(nextText);
-  }, [content, loading, t]);
+    return pipe(replaceThinkToSection, preprocessLaTeX)(nextText);
+  }, [content, t]);
 
   useEffect(() => {
-    setDocumentIds(reference?.doc_aggs?.map((x) => x.doc_id) ?? []);
+    const docAggs = reference?.doc_aggs;
+    setDocumentIds(Array.isArray(docAggs) ? docAggs.map((x) => x.doc_id) : []);
   }, [reference, setDocumentIds]);
 
   const handleDocumentButtonClick = useCallback(
@@ -169,9 +170,9 @@ const MarkdownContent = ({
         );
       });
 
-      replacedText = reactStringReplace(replacedText, curReg, (match, i) => (
-        <span className={styles.cursor} key={i}></span>
-      ));
+      // replacedText = reactStringReplace(replacedText, curReg, (match, i) => (
+      //   <span className={styles.cursor} key={i}></span>
+      // ));
 
       return replacedText;
     },
@@ -182,6 +183,7 @@ const MarkdownContent = ({
     <Markdown
       rehypePlugins={[rehypeWrapReference, rehypeKatex, rehypeRaw]}
       remarkPlugins={[remarkGfm, remarkMath]}
+      className={styles.markdownContentWrapper}
       components={
         {
           'custom-typography': ({ children }: { children: string }) =>

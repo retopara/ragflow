@@ -15,6 +15,7 @@
 #
 import logging
 import os
+import re
 from collections import defaultdict, Counter
 from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
@@ -59,6 +60,7 @@ class Extractor:
         if response:
             return response
         response = self._llm.chat(system, hist, conf)
+        response = re.sub(r"<think>.*</think>", "", response, flags=re.DOTALL)
         if response.find("**ERROR**") >= 0:
             raise Exception(response)
         set_llm_cache(self._llm.llm_name, system, response, history, gen_conf)
@@ -99,6 +101,7 @@ class Extractor:
         with ThreadPoolExecutor(max_workers=max_workers) as exe:
             threads = []
             for i, (cid, ck) in enumerate(chunks):
+                ck = truncate(ck, int(self._llm.max_length*0.8))
                 threads.append(
                     exe.submit(self._process_single_content, (cid, ck)))
 
@@ -241,5 +244,5 @@ class Extractor:
         )
         use_prompt = prompt_template.format(**context_base)
         logging.info(f"Trigger summary: {entity_or_relation_name}")
-        summary = self._chat(use_prompt, [{"role": "assistant", "content": "Output: "}], {"temperature": 0.8})
+        summary = self._chat(use_prompt, [{"role": "user", "content": "Output: "}], {"temperature": 0.8})
         return summary

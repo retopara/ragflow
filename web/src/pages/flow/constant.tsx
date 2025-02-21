@@ -426,6 +426,7 @@ export const initialGenerateValues = {
 
 export const initialRewriteQuestionValues = {
   ...initialLlmBaseValues,
+  language: '',
   message_history_window_size: 6,
 };
 
@@ -669,9 +670,7 @@ export const RestrictedUpstreamMap = {
   [Operator.RewriteQuestion]: [
     Operator.Begin,
     Operator.Message,
-    Operator.Generate,
     Operator.RewriteQuestion,
-    Operator.Categorize,
     Operator.Relevant,
   ],
   [Operator.KeywordExtract]: [

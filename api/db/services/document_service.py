@@ -372,13 +372,17 @@ class DocumentService(CommonService):
                     "progress_msg": "Task is queued...",
                     "process_begin_at": get_format_time()
                     })
+    @classmethod
+    @DB.connection_context()
+    def update_meta_fields(cls, doc_id, meta_fields):
+        return cls.update_by_id(doc_id, {"meta_fields": meta_fields})
 
     @classmethod
     @DB.connection_context()
     def update_progress(cls):
         MSG = {
             "raptor": "Start RAPTOR (Recursive Abstractive Processing for Tree-Organized Retrieval).",
-            "graphrag": "Start Graph Extraction",
+            "graphrag": "Entities extraction progress",
             "graph_resolution": "Start Graph Resolution",
             "graph_community": "Start Graph Community Reports Generation"
         }

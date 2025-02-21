@@ -197,7 +197,7 @@ export default {
       name: '知識庫名稱',
       photo: '知識庫圖片',
       description: '描述',
-      language: '語言',
+      language: '文件語言',
       languageMessage: '請輸入語言',
       languagePlaceholder: '請輸入語言',
       permissions: '權限',
@@ -506,6 +506,9 @@ export default {
         '它將檢索相關實體、關係和社區報告的描述，這將增強多跳和複雜問題的推理。',
       keyword: '關鍵字分析',
       keywordTip: `應用LLM分析使用者的問題，提取在相關性計算中需要強調的關鍵字。`,
+      reasoning: '推理',
+      reasoningTip:
+        '它將觸發類似Deepseek-R1/OpenAI o1的推理過程。將代理搜尋過程整合到推理工作流程中，使得模型本身能夠在遇到不確定資訊時動態地檢索外部知識。',
     },
     setting: {
       profile: '概述',
@@ -1087,7 +1090,8 @@ export default {
       pasteFileLink: '貼上文件連結',
       testRun: '試運行',
       template: '模板轉換',
-      templateDescription: '此元件用於排版各種元件的輸出。1、支持Jinja2模板，會先將輸入轉為對象後進行模板渲染2、同時保留原使用{參數}字符串替換的方式',
+      templateDescription:
+        '此元件用於排版各種元件的輸出。1、支持Jinja2模板，會先將輸入轉為對象後進行模板渲染2、同時保留原使用{參數}字符串替換的方式',
       jsonUploadTypeErrorMessage: '請上傳json檔',
       jsonUploadContentErrorMessage: 'json 檔案錯誤',
       iterationDescription: `此元件首先透過「分隔符號」將輸入拆分為陣列。
@@ -1101,7 +1105,7 @@ export default {
         tab: '製表符',
         underline: '底線',
         diagonal: '斜線',
-        minus: '減號',
+        minus: '連字符',
         semicolon: '分號',
       },
       addVariable: '新增變數',
@@ -1110,6 +1114,7 @@ export default {
       addCategory: '新增分類',
       categoryName: '分類名稱',
       nextStep: '下一步',
+      insertVariableTip: `輸入 / 插入變數`,
     },
     footer: {
       profile: '“保留所有權利 @ react”',

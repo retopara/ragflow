@@ -7,6 +7,43 @@ slug: /release_notes
 
 Key features, improvements and bug fixes in the latest releases.
 
+## v0.16.0
+
+Released on February 6, 2025.
+
+### New features
+
+- Supports DeepSeek R1 and DeepSeek V3.
+- GraphRAG refactor: Knowledge graph is dynamically built on an entire knowledge base (dataset) rather than on an individual file, and automatically updated when files are added or removed. See [here](https://ragflow.io/docs/dev/construct_knowledge_graph).
+- Adds an **Iteration** agent component and a **Research report generator** agent template.
+- New UI language: Portuguese.
+- Allows setting metadata for a specific file in a knowledge base to support AI-powered chats.
+- Upgrades RAGFlow's document engine [Infinity](https://github.com/infiniflow/infinity) to v0.6.0.dev3.
+- Supports GPU acceleration for DeepDoc (see [docker-compose-gpu.yml](https://github.com/infiniflow/ragflow/blob/main/docker/docker-compose-gpu.yml)).
+- Supports creating and referencing a **Tag** knowledge base as a key milestone towards bridging the semantic gap between query and response.
+
+:::danger IMPORTANT
+The **Tag knowledge base** feature is *unavailable* on the [Infinity](https://github.com/infiniflow/infinity) document engine.
+:::
+
+### Documentation
+
+#### Added documents
+
+- [Begin component](https://ragflow.io/docs/dev/begin_component)
+- [Generate component](https://ragflow.io/docs/dev/generate_component)
+- [Interact component](https://ragflow.io/docs/dev/interact_component)
+- [Retrieval component](https://ragflow.io/docs/dev/retrieval_component)
+- [Categorize component](https://ragflow.io/docs/dev/categorize_component)
+- [Keyword component](https://ragflow.io/docs/dev/keyword_component)
+- [Message component](https://ragflow.io/docs/dev/message_component)
+- [Rewrite component](https://ragflow.io/docs/dev/rewrite_component)
+- [Switch component](https://ragflow.io/docs/dev/switch_component)
+- [Concentrator component](https://ragflow.io/docs/dev/concentrator_component)
+- [Template component](https://ragflow.io/docs/dev/template_component)
+- [Iteration component](https://ragflow.io/docs/dev/iteration_component)
+- [Note component](https://ragflow.io/docs/dev/note_component)
+
 ## v0.15.1
 
 Released on December 25, 2024.
@@ -60,7 +97,7 @@ Released on December 18, 2024.
 
 ### Improvements
 
-- Upgrades the Document Layout Analysis model in Deepdoc.
+- Upgrades the Document Layout Analysis model in DeepDoc.
 - Significantly enhances the retrieval performance when using [Infinity](https://github.com/infiniflow/infinity) as document engine.
 
 ### Related APIs
@@ -181,7 +218,7 @@ Released on September 30, 2024.
 - Enables users to remove added LLM vendors.
 - Adds support for **OpenTTS** and **SparkTTS** models.
 - Implements an **Excel to HTML** toggle in the **General** chunk method, allowing users to parse a spreadsheet into either HTML tables or key-value pairs by row.
-- Adds agent tools **YahooFance** and **Jin10**.
+- Adds agent tools **YahooFinance** and **Jin10**.
 - Adds an investment advisor agent template.
 
 ### Compatibility changes
@@ -233,7 +270,7 @@ Released on August 26, 2024.
 - Incorporates monitoring for the task executor.
 - Introduces Agent tools **GitHub**, **DeepL**, **BaiduFanyi**, **QWeather**, and **GoogleScholar**.
 - Supports chunking of EML files.
-- Supports more LLMs or model services: **GPT-4o-mini**, **PerfXCloud**, **TogetherAI**, **Upstage**, **Novita.AI**, **01.AI**, **SiliconFlow**, **XunFei Spark**, **Baidu Yiyan**, and **Tencent Hunyuan**.
+- Supports more LLMs or model services: **GPT-4o-mini**, **PerfXCloud**, **TogetherAI**, **Upstage**, **Novita.AI**, **01.AI**, **SiliconFlow**, **PPIO**, **XunFei Spark**, **Baidu Yiyan**, and **Tencent Hunyuan**.
 
 ## v0.9.0
 
@@ -242,7 +279,7 @@ Released on August 6, 2024.
 ### New features
 
 - Supports GraphRAG as a chunk method.
-- Introduces Agent component **Keyword** and search tools, including **Baidu**, **DduckDuckGo**, **PubMed**, **Wikipedia**, **Bing**, and **Google**.
+- Introduces Agent component **Keyword** and search tools, including **Baidu**, **DuckDuckGo**, **PubMed**, **Wikipedia**, **Bing**, and **Google**.
 - Supports speech-to-text recognition for audio files.
 - Supports model vendors **Gemini** and **Groq**.
 - Supports inference frameworks, engines, and services including **LM studio**, **OpenRouter**, **LocalAI**, and **Nvidia API**.
@@ -274,7 +311,7 @@ Released on May 31, 2024.
 - Supports ARM64 platforms.
 
 :::danger IMPORTANT
-While we also test RAGFlow on ARM64 platforms, we do not plan to maintain RAGFlow Docker images for ARM.
+While we also test RAGFlow on ARM64 platforms, we do not maintain RAGFlow Docker images for ARM.
 
 If you are on an ARM platform, follow [this guide](https://ragflow.io/docs/dev/build_docker_image) to build a RAGFlow Docker image.
 :::
